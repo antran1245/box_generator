@@ -1,23 +1,25 @@
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Box from './components/box';
 
 function App() {
+  const [color, setColor] = useState([])
+
+  const addColor = (e) => {
+    e.preventDefault();
+    setColor([...color, e.target.color.value])
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={addColor}>
+        <label htmlFor='color'>Color: </label>
+        <input type="text" name="color"/>
+        <input type="submit" value="Add"/>
+      </form>
+      {color.map((item, i) => 
+        <Box color={item}/>)}
     </div>
   );
 }

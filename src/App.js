@@ -8,18 +8,28 @@ function App() {
 
   const addColor = (e) => {
     e.preventDefault();
-    setColor([...color, e.target.color.value])
+    if(e.target.size.value === "") {
+      e.target.size.value = 200
+    }
+    setColor([...color, {color:e.target.color.value, size:e.target.size.value}])
+    e.target.reset()
   }
 
   return (
     <div className="App">
       <form onSubmit={addColor}>
-        <label htmlFor='color'>Color: </label>
-        <input type="text" name="color"/>
+        <div>
+          <label htmlFor='color'>Color: </label>
+          <input type="text" name="color"/>
+        </div>
+        <div>
+          <label htmlFor='size'>Size: </label>
+          <input type="text" name="size"/>
+        </div>
         <input type="submit" value="Add"/>
       </form>
       {color.map((item, i) => 
-        <Box color={item}/>)}
+        <Box key={i} color={item.color} size={item.size}/>)}
     </div>
   );
 }
